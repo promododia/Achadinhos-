@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Achadinho no Precinho</title>
+    <style>
+        :root { --principal: #ff4d00; --fundo: #f8f9fa; --texto: #333; --verde: #25d366; }
+        body { font-family: -apple-system, sans-serif; margin: 0; background: var(--fundo); color: var(--texto); padding-bottom: 80px; }
+        header { background: white; padding: 15px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+        .nav-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        header h1 { margin: 0; font-size: 22px; background: linear-gradient(45deg, #ff4d00, #ff9100); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold; }
+        .avatar-btn { width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--principal); overflow: hidden; background: #eee; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .avatar-btn img { width: 100%; height: 100%; object-fit: cover; }
+        .search-container input { width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid #eee; background: #f1f3f4; box-sizing: border-box; outline: none; font-size: 16px; }
+        .categorias { display: flex; gap: 10px; overflow-x: auto; padding: 10px 0; scrollbar-width: none; }
+        .chip { background: white; padding: 8px 18px; border-radius: 20px; border: 1px solid #ddd; cursor: pointer; white-space: nowrap; font-size: 14px; }
+        .chip.active { background: var(--principal); color: white; border-color: var(--principal); }
+        .card { background: white; border-radius: 16px; margin: 15px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; }
+        .card img { width: 100%; height: 280px; object-fit: contain; background: #fff; }
+        .card-body { padding: 18px; }
+        .card-title { font-size: 16px; font-weight: 600; margin-bottom: 15px; display: block; line-height: 1.4; }
+        .btn-link { display: block; background: var(--principal); color: white; text-align: center; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; }
+        #btn-adicionar { position: fixed; bottom: 30px; right: 20px; background: var(--verde); color: white; width: 60px; height: 60px; border-radius: 20px; display: none; justify-content: center; align-items: center; font-size: 32px; border: none; box-shadow: 0 5px 20px rgba(37,211,102,0.4); z-index: 999; }
+        footer { background: #fff; padding: 30px; border-top: 1px solid #eee; text-align: center; font-size: 13px; color: #777; }
+        #modal-form { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1001; justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 25px; border-radius: 24px; width: 90%; max-width: 400px; }
+        .modal-content input, .modal-content select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #eee; border-radius: 10px; box-sizing: border-box; background: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-top">
+            <h1>Achadinho.</h1>
+            <div class="avatar-btn" onclick="gerenciarLogin()">
+                <img id="avatar-img" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" id="campo-busca" placeholder="O que você procura hoje?" onkeyup="filtrarTudo()">
+        </div>
+        <div class="categorias">
+            <div class="chip active" onclick="filtrarCategoria('Tudo', this)">Tudo ✨</div>
+            <div class="chip" onclick="filtrarCategoria('Feminino', this)">Feminino 👗</div>
+            <div class="chip" onclick="filtrarCategoria('Masculino', this)">Masculino 👕</div>
+            <div class="chip" onclick="filtrarCategoria('Eletrônicos', this)">Eletrônicos 📱</div>
+            <div class="chip" onclick="filtrarCategoria('Beleza', this)">Beleza 💄</div>
+            <div class="chip" onclick="filtrarCategoria('Casa', this)">Casa 🏠</div>
+        </div>
+    </header>
+
+    <div id="lista-produtos"></div>
+    <button id="btn-adicionar" onclick="abrirModal()">+</button>
+
+    <div id="modal-form">
+        <div class="modal-content">
+            <h2 style="margin-top:0">Novo Achadinho</h2>
+            <input type="text" id="p-titulo" placeholder="Nome do Produto">
+            <input type="text" id="p-imagem" placeholder="Link da Imagem">
+            <input type="text" id="p-link" placeholder="Seu Link de Afiliado">
+            <select id="p-categoria">
+                <option value="Tudo">Escolha a Categoria</option>
+                <option value="Feminino">Feminino</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Eletrônicos">Eletrônicos</option>
+                <option value="Beleza">Beleza</option>
+                <option value="Casa">Casa</option>
+            </select>
+            <button onclick="salvarPost()" style="width:100%; background:var(--principal); color:white; padding:16px; border:none; border-radius:12px; font-weight:bold;">Publicar Agora</button>
+            <button onclick="fecharModal()" style="width:100%; background:none; border:none; color:gray; margin-top:10px;">Cancelar</button>
+        </div>
+    </div>
+
+    <footer><p>&copy; 2026 Achadinho no Precinho.</p></footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCedzFgv43RRWJmyvA10S9_fBwB_wBw",
+            authDomain: "achadinho-no-precinho.firebaseapp.com",
+            projectId: "achadinho-no-precinho",
+            storageBucket: "achadinho-no-precinho.appspot.com",
+            messagingSenderId: "626481618160",
+            appId: "1:626481618160:web:6971d5560c36a47ccd3635"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const MEU_UID = "PwnZYwD4DacE2dcHwBBN3Iuvngf1";
+        let produtosLocal = [];
+        let catAtual = "Tudo";
+
+        function gerenciarLogin() {
+            if (!auth.currentUser) {
+                auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+            } else {
+                if(confirm("Deseja sair da conta?")) auth.signOut().then(() => location.reload());
+            }
+        }
+
+        auth.onAuthStateChanged(user => {
+            const btnAdd = document.getElementById('btn-adicionar');
+            const imgUser = document.getElementById('avatar-img');
+            if (user) {
+                imgUser.src = user.photoURL;
+                if (user.uid === MEU_UID) btnAdd.style.display = 'flex';
+            } else {
+                imgUser.src = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+                btnAdd.style.display = 'none';
+            }
+        });
+
+        function abrirModal() { document.getElementById('modal-form').style.display = 'flex'; }
+        function fecharModal() { document.getElementById('modal-form').style.display = 'none'; }
+
+        function salvarPost() {
+            const titulo = document.getElementById('p-titulo').value;
+            const img = document.getElementById('p-imagem').value;
+            const link = document.getElementById('p-link').value;
+            const cat = document.getElementById('p-categoria').value;
+            if(!titulo || !img || !link) return alert("Preencha tudo!");
+            db.collection("produtos").add({ titulo, imagem: img, link, categoria: cat, data: new Date() })
+            .then(() => { alert("Postado!"); fecharModal(); });
+        }
+
+        db.collection("produtos").orderBy("data", "desc").onSnapshot(snap => {
+            produtosLocal = [];
+            snap.forEach(doc => produtosLocal.push(doc.data()));
+            renderizar(produtosLocal);
+        });
+
+        function renderizar(lista) {
+            const div = document.getElementById('lista-produtos');
+            div.innerHTML = "";
+            lista.forEach(p => {
+                div.innerHTML += `<div class="card"><img src="${p.imagem}"><div class="card-body"><span class="card-title">${p.titulo}</span><a href="${p.link}" target="_blank" class="btn-link">Ver Oferta</a></div></div>`;
+            });
+        }
+
+        function filtrarCategoria(cat, elemento) {
+            catAtual = cat;
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            elemento.classList.add('active');
+            filtrarTudo();
+        }
+
+        function filtrarTudo() {
+            const busca = document.getElementById('campo-busca').value.toLowerCase();
+            const filtrados = produtosLocal.filter(p => {
+                const bateuBusca = p.titulo.toLowerCase().includes(busca);
+                const bateuCat = catAtual === "Tudo" || p.categoria === catAtual;
+                return bateuBusca && bateuCat;
+            });
+            renderizar(filtrados);
+        }
+    </script>
+</body>
+</html>
