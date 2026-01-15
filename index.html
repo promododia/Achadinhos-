@@ -6,88 +6,69 @@
     <title>Achadinho no Precinho | Oficial</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #0066ff; --bg: #f8f9fa; --text: #1a1a1a; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; color: var(--text); }
-        
-        /* Header Fixo e Profissional */
-        header { 
-            background: #fff; padding: 15px 20px; border-bottom: 1px solid #eee; 
-            display: flex; justify-content: space-between; align-items: center;
-            position: sticky; top: 0; z-index: 100;
-        }
-        .logo { font-weight: 800; color: var(--primary); font-size: 1.2rem; text-transform: uppercase; }
-        
-        /* Área de Login e Admin */
-        .user-area { display: flex; align-items: center; gap: 12px; }
-        .user-photo { width: 35px; height: 35px; border-radius: 50%; border: 2px solid var(--primary); cursor: pointer; }
-        .btn-add { 
-            background: var(--primary); color: white; border: none; width: 35px; height: 35px; 
-            border-radius: 50%; font-size: 24px; font-weight: bold; cursor: pointer; display: none; 
-        }
-        .btn-login-header { background: #eee; border: none; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 12px; }
-
-        .container { max-width: 450px; margin: 20px auto; padding: 0 15px; }
-
-        /* Modal de Postagem (Flutuante) */
-        #modal-post {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center;
-        }
-        .modal-content { background: white; padding: 25px; border-radius: 20px; width: 90%; max-width: 400px; }
-        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
-
-        /* Estilo dos Cards */
-        .card { background: #fff; border-radius: 18px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); position: relative; }
-        .card.esgotado { opacity: 0.6; filter: grayscale(1); }
-        .category-tag { background: #eef2ff; color: var(--primary); font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 50px; display: inline-block; margin-bottom: 8px; }
-        .card-img { width: 100%; height: 230px; object-fit: contain; background: #fff; padding: 15px; box-sizing: border-box; }
-        .card-info { padding: 20px; }
-        .card-title { font-size: 1rem; font-weight: 600; margin: 0; height: 40px; overflow: hidden; }
-        .card-price { font-size: 1.6rem; font-weight: 800; color: #000; margin: 12px 0; display: block; }
-        .btn-buy { display: block; text-align: center; background: var(--primary); color: #fff; text-decoration: none; padding: 14px; border-radius: 12px; font-weight: 700; }
-        .btn-buy.locked { background: #555; }
-        
-        /* Controle Admin dentro do Card */
-        .admin-controls { display: none; padding: 0 20px 20px; gap: 10px; }
-        .btn-status { background: #ff4d4d; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 11px; }
+        :root { --primaria: #0066ff; --fundo: #f8f9fa; --texto: #1a1a1a; }
+        body { font-family: 'Inter', sans-serif; background: var(--fundo); margin: 0; color: var(--texto); }
+        header { background: #fff; padding: 12px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .logo { font-weight: 800; color: var(--primaria); font-size: 1.1rem; text-transform: uppercase; }
+        .user-area { display: flex; align-items: center; gap: 10px; }
+        .user-photo { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--primaria); cursor: pointer; }
+        .btn-add { background: var(--primaria); color: white; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 22px; font-weight: bold; cursor: pointer; display: none; align-items: center; justify-content: center; }
+        .btn-login-discreto { background: #f0f0f0; border: none; padding: 6px 12px; border-radius: 15px; cursor: pointer; font-size: 11px; font-weight: 600; }
+        .container { max-width: 450px; margin: 15px auto; padding: 0 15px; }
+        #modal-post { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
+        .modal-content { background: white; padding: 25px; border-radius: 20px; width: 85%; max-width: 350px; }
+        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+        .card { background: #fff; border-radius: 16px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.04); border: 1px solid #efefef; position: relative; }
+        .card.esgotado { opacity: 0.5; filter: grayscale(1); }
+        .tag-cat { background: #eef2ff; color: var(--primaria); font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px; text-transform: uppercase; }
+        .card-img { width: 100%; height: 220px; object-fit: contain; background: #fff; padding: 10px; box-sizing: border-box; }
+        .card-info { padding: 15px; }
+        .card-title { font-size: 0.95rem; font-weight: 600; margin: 0; line-height: 1.3; color: #333; }
+        .card-price { font-size: 1.5rem; font-weight: 800; color: #000; margin: 10px 0; display: block; }
+        .btn-link { display: block; text-align: center; background: var(--primaria); color: #fff; text-decoration: none; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 14px; border:none; width:100%; cursor:pointer; }
+        .btn-link.lock { background: #333; }
+        .admin-btns { display: none; padding: 0 15px 15px; gap: 8px; }
+        .btn-del { background: #ffeded; color: #ff4d4d; border: 1px solid #ff4d4d; padding: 6px; border-radius: 6px; font-size: 11px; cursor: pointer; flex: 1; font-weight: 600; }
     </style>
 </head>
 <body>
 
 <header>
     <div class="logo">ACHADINHO</div>
-    <div class="user-area" id="user-area">
-        <button id="btnLogin" class="btn-login-header">Entrar</button>
+    <div class="user-area">
+        <button id="btnLogin" class="btn-login-discreto">Entrar</button>
         <button id="btnAdd" class="btn-add">+</button>
-        <img id="userPhoto" class="user-photo" style="display:none" onclick="logout()">
+        <img id="userPhoto" class="user-photo" style="display:none" onclick="confirmarSair()">
     </div>
 </header>
 
 <div class="container" id="vitrine">
-    </div>
+    <p style="text-align:center; margin-top:50px; opacity:0.5">Carregando ofertas...</p>
+</div>
 
 <div id="modal-post">
     <div class="modal-content">
-        <h3 style="margin-top:0">Nova Oferta 💎</h3>
+        <h3 style="margin:0 0 15px 0; color:var(--primaria)">Novo Achadinho</h3>
         <input type="text" id="p-nome" placeholder="Nome do Produto">
-        <input type="text" id="p-preco" placeholder="Preço (Ex: R$ 19,90)">
-        <input type="url" id="p-link" placeholder="Link da Loja">
-        <input type="url" id="p-img" placeholder="Link da Foto">
+        <input type="text" id="p-preco" placeholder="Preço (Ex: R$ 29,90)">
+        <input type="url" id="p-link" placeholder="Link do Produto">
+        <input type="url" id="p-img" placeholder="Link da Imagem">
         <select id="p-cat">
+            <option value="Variados">Escolha a Categoria</option>
             <option value="Casa">Casa</option>
             <option value="Cozinha">Cozinha</option>
             <option value="Tecnologia">Tecnologia</option>
             <option value="Beleza">Beleza</option>
         </select>
-        <button class="btn-buy" id="btnSalvar">Publicar</button>
-        <button style="background:none; border:none; width:100%; margin-top:10px; color:#666;" onclick="fecharModal()">Cancelar</button>
+        <button class="btn-link" id="btnPublicar">Publicar no Site</button>
+        <button onclick="fecharModal()" style="background:none; border:none; width:100%; margin-top:10px; color:#999; font-size:12px; cursor:pointer">Cancelar</button>
     </div>
 </div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getDatabase, ref, push, onValue, query, limitToLast, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    import { getDatabase, ref, push, onValue, query, limitToLast, update, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
     const firebaseConfig = { 
         apiKey: "AIzaSyCedznZfgv43RRWJmyvA105xFrRhpNTDEw", 
@@ -103,91 +84,89 @@
     const auth = getAuth(app);
     const db = getDatabase(app);
     const provider = new GoogleAuthProvider();
-    const EMAIL_WALLY = "wallyazevedo18@gmail.com";
+    const DONO = "wallyazevedo18@gmail.com";
 
-    // Elementos
-    const btnLogin = document.getElementById('btnLogin');
-    const btnAdd = document.getElementById('btnAdd');
-    const userPhoto = document.getElementById('userPhoto');
-    const modal = document.getElementById('modal-post');
+    let logado = null;
 
-    // Login/Logout
-    btnLogin.onclick = () => signInWithPopup(auth, provider);
-    window.logout = () => { if(confirm("Sair da conta?")) signOut(auth); };
-    window.fecharModal = () => modal.style.display = 'none';
-    btnAdd.onclick = () => modal.style.display = 'flex';
+    document.getElementById('btnLogin').onclick = () => signInWithPopup(auth, provider);
+    window.confirmarSair = () => { if(confirm("Deseja sair da conta?")) signOut(auth); };
+    window.fecharModal = () => document.getElementById('modal-post').style.display = 'none';
+    document.getElementById('btnAdd').onclick = () => document.getElementById('modal-post').style.display = 'flex';
 
-    // Controle de Usuário
-    let usuarioLogado = null;
     onAuthStateChanged(auth, (user) => {
-        usuarioLogado = user;
+        logado = user;
+        const btnLogin = document.getElementById('btnLogin');
+        const btnAdd = document.getElementById('btnAdd');
+        const userPhoto = document.getElementById('userPhoto');
+
         if (user) {
             btnLogin.style.display = 'none';
             userPhoto.style.display = 'block';
             userPhoto.src = user.photoURL;
-            if(user.email === EMAIL_WALLY) btnAdd.style.display = 'block';
+            if(user.email === DONO) btnAdd.style.display = 'flex';
         } else {
             btnLogin.style.display = 'block';
             userPhoto.style.display = 'none';
             btnAdd.style.display = 'none';
         }
-        carregarOfertas();
+        carregarDados();
     });
 
-    // Postar
-    document.getElementById('btnSalvar').onclick = async () => {
-        const payload = {
-            nome: document.getElementById('p-nome').value,
-            preco: document.getElementById('p-preco').value,
-            link: document.getElementById('p-link').value,
-            img: document.getElementById('p-img').value,
-            cat: document.getElementById('p-cat').value,
-            status: 'ativo',
-            time: Date.now()
-        };
-        await push(ref(db, 'achadinhos'), payload);
+    document.getElementById('btnPublicar').onclick = async () => {
+        const nome = document.getElementById('p-nome').value;
+        const preco = document.getElementById('p-preco').value;
+        const link = document.getElementById('p-link').value;
+        const img = document.getElementById('p-img').value;
+        const cat = document.getElementById('p-cat').value;
+
+        if(!nome || !preco || !link) return alert("Preencha Nome, Preço e Link!");
+
+        await push(ref(db, 'achadinhos'), { nome, preco, link, img, cat, status: 'ativo', data: Date.now() });
         fecharModal();
-        alert("Publicado!");
+        document.querySelectorAll('input').forEach(i => i.value = "");
     };
 
-    // Marcar como Esgotado (Apenas Wally)
-    window.toggleEsgotado = async (id, statusAtual) => {
-        const novoStatus = statusAtual === 'ativo' ? 'esgotado' : 'ativo';
-        await update(ref(db, `achadinhos/${id}`), { status: novoStatus });
+    window.mudarStatus = async (id, status) => {
+        const novo = status === 'ativo' ? 'esgotado' : 'ativo';
+        await update(ref(db, `achadinhos/${id}`), { status: novo });
+    };
+    window.excluirItem = async (id) => {
+        if(confirm("Apagar esta oferta?")) await remove(ref(db, `achadinhos/${id}`));
     };
 
-    // Renderizar Vitrine
-    function carregarOfertas() {
+    function carregarDados() {
         onValue(query(ref(db, 'achadinhos'), limitToLast(40)), (snapshot) => {
             const vitrine = document.getElementById('vitrine');
             vitrine.innerHTML = "";
-            let data = [];
-            snapshot.forEach(c => { data.unshift({id: c.key, ...c.val()}) });
+            let itens = [];
+            snapshot.forEach(doc => { itens.unshift({id: doc.key, ...doc.val()}) });
 
-            data.forEach(item => {
-                const isEsgotado = item.status === 'esgotado';
-                const isWally = usuarioLogado?.email === EMAIL_WALLY;
+            if(itens.length === 0) { vitrine.innerHTML = "<p style='text-align:center; margin-top:50px; opacity:0.5'>Nenhuma oferta postada.</p>"; return; }
+
+            itens.forEach(item => {
+                const esgotado = item.status === 'esgotado';
+                const souDona = logado?.email === DONO;
                 
                 vitrine.innerHTML += `
-                    <div class="card ${isEsgotado ? 'esgotado' : ''}">
+                    <div class="card ${esgotado ? 'esgotado' : ''}">
                         ${item.img ? `<img src="${item.img}" class="card-img">` : ''}
                         <div class="card-info">
-                            <span class="category-tag">${item.cat}</span>
+                            <span class="tag-cat">${item.cat || 'Geral'}</span>
                             <h2 class="card-title">${item.nome}</h2>
                             <span class="card-price">${item.preco}</span>
-                            
-                            ${!usuarioLogado 
-                                ? `<button class="btn-buy locked" onclick="document.getElementById('btnLogin').click()">Login para Ver Link</button>`
-                                : isEsgotado 
-                                    ? `<span class="btn-buy" style="background:#ccc">Esgotado</span>`
-                                    : `<a href="${item.link}" target="_blank" class="btn-buy">Ir para a Loja</a>`
+                            ${!logado 
+                                ? `<button class="btn-link lock" onclick="document.getElementById('btnLogin').click()">Login para ver Link</button>`
+                                : esgotado 
+                                    ? `<span class="btn-link" style="background:#bbb">Esgotado</span>`
+                                    : `<a href="${item.link}" target="_blank" class="btn-link">Ir para a Loja</a>`
                             }
                         </div>
-                        ${isWally ? `
-                            <div class="admin-controls" style="display:flex">
-                                <button class="btn-status" onclick="toggleEsgotado('${item.id}', '${item.status}')">
-                                    ${isEsgotado ? 'Reativar' : 'Marcar Esgotado'}
+                        ${souDona ? `
+                            <div class="admin-btns" style="display:flex">
+                                <button class="btn-del" style="border-color:#333; color:#333" onclick="mudarStatus('${item.id}', '${item.status}')">
+                                    ${esgotado ? 'Reativar' : 'Esgotado'}
                                 </button>
+                                <button class="btn-del" onclick="excluirItem('${item.id}')">Excluir</button>
                             </div>
                         ` : ''}
                     </div>
