@@ -2,178 +2,465 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Achadinho no Precinho | Oficial</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Achadinho no Precinho | Ofertas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --primaria: #0066ff; --fundo: #f8f9fa; --texto: #1a1a1a; }
-        body { font-family: 'Inter', sans-serif; background: var(--fundo); margin: 0; color: var(--texto); }
-        header { background: #fff; padding: 12px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-        .logo { font-weight: 800; color: var(--primaria); font-size: 1.1rem; text-transform: uppercase; }
+        :root {
+            --azul-brand: #0066ff;
+            --azul-dark: #0052cc;
+            --fundo: #f8f9fa;
+            --texto: #111827;
+            --cinza-suave: #e5e7eb;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--fundo);
+            margin: 0;
+            color: var(--texto);
+            padding-bottom: 60px;
+        }
+
+        /* --- CABEÇALHO --- */
+        header {
+            background: #ffffff;
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            height: 60px;
+        }
+
+        .logo {
+            font-weight: 800;
+            color: var(--azul-brand);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            text-decoration: none;
+        }
+
         .user-area { display: flex; align-items: center; gap: 10px; }
-        .user-photo { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--primaria); cursor: pointer; }
-        .btn-add { background: var(--primaria); color: white; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 22px; font-weight: bold; cursor: pointer; display: none; align-items: center; justify-content: center; }
-        .btn-login-discreto { background: #f0f0f0; border: none; padding: 6px 12px; border-radius: 15px; cursor: pointer; font-size: 11px; font-weight: 600; }
-        .container { max-width: 450px; margin: 15px auto; padding: 0 15px; }
-        #modal-post { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
-        .modal-content { background: white; padding: 25px; border-radius: 20px; width: 85%; max-width: 350px; }
-        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
-        .card { background: #fff; border-radius: 16px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.04); border: 1px solid #efefef; position: relative; }
-        .card.esgotado { opacity: 0.5; filter: grayscale(1); }
-        .tag-cat { background: #eef2ff; color: var(--primaria); font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px; text-transform: uppercase; }
-        .card-img { width: 100%; height: 220px; object-fit: contain; background: #fff; padding: 10px; box-sizing: border-box; }
-        .card-info { padding: 15px; }
-        .card-title { font-size: 0.95rem; font-weight: 600; margin: 0; line-height: 1.3; color: #333; }
-        .card-price { font-size: 1.5rem; font-weight: 800; color: #000; margin: 10px 0; display: block; }
-        .btn-link { display: block; text-align: center; background: var(--primaria); color: #fff; text-decoration: none; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 14px; border:none; width:100%; cursor:pointer; }
-        .btn-link.lock { background: #333; }
-        .admin-btns { display: none; padding: 0 15px 15px; gap: 8px; }
-        .btn-del { background: #ffeded; color: #ff4d4d; border: 1px solid #ff4d4d; padding: 6px; border-radius: 6px; font-size: 11px; cursor: pointer; flex: 1; font-weight: 600; }
+
+        .btn-entrar {
+            background: #f3f4f6;
+            color: #374151;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-entrar:hover { background: #e5e7eb; }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--azul-brand);
+            cursor: pointer;
+            display: none;
+        }
+
+        .btn-add-wally {
+            background: var(--azul-brand);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            font-size: 20px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 102, 255, 0.4);
+            transition: transform 0.2s;
+        }
+        .btn-add-wally:active { transform: scale(0.9); }
+
+        /* --- VITRINE --- */
+        .container {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 0 16px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border: 1px solid var(--cinza-suave);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+        
+        .card.esgotado { opacity: 0.6; filter: grayscale(1); }
+
+        .card-img-area {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            background: #fff;
+            border-bottom: 1px solid #f9fafb;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .tag-cat {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(239, 246, 255, 0.9);
+            color: var(--azul-brand);
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            backdrop-filter: blur(2px);
+        }
+
+        .card-body { padding: 16px; }
+
+        .titulo {
+            font-size: 1rem;
+            font-weight: 500;
+            margin: 0 0 8px 0;
+            line-height: 1.4;
+            color: #374151;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .preco {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #111827;
+            display: block;
+            margin-bottom: 16px;
+        }
+
+        .btn-acao {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
+
+        .btn-ver-loja { background: var(--azul-brand); color: white; }
+        .btn-ver-loja:active { background: var(--azul-dark); }
+        
+        .btn-lock { background: #1f2937; color: white; gap: 8px; }
+        .btn-esgotado { background: #e5e7eb; color: #9ca3af; cursor: not-allowed; }
+
+        /* Painel Admin */
+        .admin-controls {
+            padding: 0 16px 16px;
+            display: flex;
+            gap: 10px;
+        }
+        .btn-mini {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            background: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #4b5563;
+        }
+        .btn-delete { color: #dc2626; border-color: #fee2e2; background: #fef2f2; }
+
+        /* --- MODAL --- */
+        #modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(3px);
+        }
+        .modal-box {
+            background: #fff;
+            padding: 24px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: subir 0.3s ease-out;
+        }
+        
+        @keyframes subir { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        label { display: block; font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 4px; margin-top: 10px; }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px; /* Evita zoom no iPhone */
+            outline: none;
+            background: #fff;
+        }
+        input:focus { border-color: var(--azul-brand); box-shadow: 0 0 0 2px rgba(0,102,255,0.1); }
+
+        .loading-state { text-align: center; margin-top: 60px; color: #9ca3af; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="logo">ACHADINHO</div>
-    <div class="user-area">
-        <button id="btnLogin" class="btn-login-discreto">Entrar</button>
-        <button id="btnAdd" class="btn-add">+</button>
-        <img id="userPhoto" class="user-photo" style="display:none" onclick="confirmarSair()">
+    <header>
+        <a href="#" class="logo">ACHADINHO</a>
+        <div class="user-area">
+            <button id="btnLogin" class="btn-entrar">Login</button>
+            <button id="btnAdd" class="btn-add-wally">+</button>
+            <img id="avatar" class="user-avatar" onclick="sair()" alt="Perfil">
+        </div>
+    </header>
+
+    <div class="container" id="vitrine">
+        <p class="loading-state">Carregando ofertas...</p>
     </div>
-</header>
 
-<div class="container" id="vitrine">
-    <p style="text-align:center; margin-top:50px; opacity:0.5">Carregando ofertas...</p>
-</div>
+    <div id="modal">
+        <div class="modal-box">
+            <h3 style="margin: 0 0 15px 0; color: var(--texto);">Nova Oferta</h3>
+            
+            <label>Nome do Produto</label>
+            <input type="text" id="nome" placeholder="Ex: Fone Bluetooth">
+            
+            <label>Preço</label>
+            <input type="text" id="preco" placeholder="Ex: R$ 59,90">
+            
+            <label>Link da Loja</label>
+            <input type="url" id="link" placeholder="https://...">
+            
+            <label>Link da Imagem</label>
+            <input type="url" id="img" placeholder="https://...">
+            
+            <label>Categoria</label>
+            <select id="cat">
+                <option value="Geral">Selecionar...</option>
+                <option value="Casa">Casa</option>
+                <option value="Cozinha">Cozinha</option>
+                <option value="Tecnologia">Tecnologia</option>
+                <option value="Beleza">Beleza</option>
+                <option value="Moda">Moda</option>
+            </select>
 
-<div id="modal-post">
-    <div class="modal-content">
-        <h3 style="margin:0 0 15px 0; color:var(--primaria)">Novo Achadinho</h3>
-        <input type="text" id="p-nome" placeholder="Nome do Produto">
-        <input type="text" id="p-preco" placeholder="Preço (Ex: R$ 29,90)">
-        <input type="url" id="p-link" placeholder="Link do Produto">
-        <input type="url" id="p-img" placeholder="Link da Imagem">
-        <select id="p-cat">
-            <option value="Variados">Escolha a Categoria</option>
-            <option value="Casa">Casa</option>
-            <option value="Cozinha">Cozinha</option>
-            <option value="Tecnologia">Tecnologia</option>
-            <option value="Beleza">Beleza</option>
-        </select>
-        <button class="btn-link" id="btnPublicar">Publicar no Site</button>
-        <button onclick="fecharModal()" style="background:none; border:none; width:100%; margin-top:10px; color:#999; font-size:12px; cursor:pointer">Cancelar</button>
+            <button onclick="postar()" class="btn-acao btn-ver-loja" style="margin-top:20px;">Publicar</button>
+            <button onclick="fecharModal()" style="width:100%; padding: 12px; background:none; border:none; margin-top:5px; color:#6b7280; font-weight:600; cursor:pointer;">Cancelar</button>
+        </div>
     </div>
-</div>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getDatabase, ref, push, onValue, query, limitToLast, update, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getDatabase, ref, push, onValue, query, limitToLast, update, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-    const firebaseConfig = { 
-        apiKey: "AIzaSyCedznZfgv43RRWJmyvA105xFrRhpNTDEw", 
-        authDomain: "achadinho-no-precinho.firebaseapp.com", 
-        databaseURL: "https://achadinho-no-precinho-default-rtdb.firebaseio.com", 
-        projectId: "achadinho-no-precinho", 
-        storageBucket: "achadinho-no-precinho.firebasestorage.app", 
-        messagingSenderId: "626481618160", 
-        appId: "1:626481618160:web:6971d5560c36a47ccd3635" 
-    };
+        // --- CONFIGURAÇÃO FIREBASE ---
+        const firebaseConfig = { 
+            apiKey: "AIzaSyCedznZfgv43RRWJmyvA105xFrRhpNTDEw", 
+            authDomain: "achadinho-no-precinho.firebaseapp.com", 
+            databaseURL: "https://achadinho-no-precinho-default-rtdb.firebaseio.com", 
+            projectId: "achadinho-no-precinho", 
+            storageBucket: "achadinho-no-precinho.firebasestorage.app", 
+            messagingSenderId: "626481618160", 
+            appId: "1:626481618160:web:6971d5560c36a47ccd3635" 
+        };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getDatabase(app);
-    const provider = new GoogleAuthProvider();
-    const DONO = "wallyazevedo18@gmail.com";
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+        const provider = new GoogleAuthProvider();
+        
+        // E-MAIL DA DONA (WALLY)
+        const DONO_EMAIL = "wallyazevedo18@gmail.com";
+        
+        let usuarioAtual = null;
 
-    let logado = null;
-
-    document.getElementById('btnLogin').onclick = () => signInWithPopup(auth, provider);
-    window.confirmarSair = () => { if(confirm("Deseja sair da conta?")) signOut(auth); };
-    window.fecharModal = () => document.getElementById('modal-post').style.display = 'none';
-    document.getElementById('btnAdd').onclick = () => document.getElementById('modal-post').style.display = 'flex';
-
-    onAuthStateChanged(auth, (user) => {
-        logado = user;
+        // Elementos DOM
         const btnLogin = document.getElementById('btnLogin');
         const btnAdd = document.getElementById('btnAdd');
-        const userPhoto = document.getElementById('userPhoto');
+        const avatar = document.getElementById('avatar');
+        const modal = document.getElementById('modal');
 
-        if (user) {
-            btnLogin.style.display = 'none';
-            userPhoto.style.display = 'block';
-            userPhoto.src = user.photoURL;
-            if(user.email === DONO) btnAdd.style.display = 'flex';
-        } else {
-            btnLogin.style.display = 'block';
-            userPhoto.style.display = 'none';
-            btnAdd.style.display = 'none';
-        }
-        carregarDados();
-    });
+        // --- AUTENTICAÇÃO ---
+        btnLogin.onclick = async () => {
+            try {
+                await signInWithPopup(auth, provider);
+            } catch (error) {
+                console.error("Erro login:", error);
+            }
+        };
+        
+        window.sair = () => {
+            if(confirm("Sair da conta?")) signOut(auth);
+        };
 
-    document.getElementById('btnPublicar').onclick = async () => {
-        const nome = document.getElementById('p-nome').value;
-        const preco = document.getElementById('p-preco').value;
-        const link = document.getElementById('p-link').value;
-        const img = document.getElementById('p-img').value;
-        const cat = document.getElementById('p-cat').value;
+        onAuthStateChanged(auth, (user) => {
+            usuarioAtual = user;
+            
+            if (user) {
+                btnLogin.style.display = 'none';
+                avatar.style.display = 'block';
+                avatar.src = user.photoURL;
 
-        if(!nome || !preco || !link) return alert("Preencha Nome, Preço e Link!");
-
-        await push(ref(db, 'achadinhos'), { nome, preco, link, img, cat, status: 'ativo', data: Date.now() });
-        fecharModal();
-        document.querySelectorAll('input').forEach(i => i.value = "");
-    };
-
-    window.mudarStatus = async (id, status) => {
-        const novo = status === 'ativo' ? 'esgotado' : 'ativo';
-        await update(ref(db, `achadinhos/${id}`), { status: novo });
-    };
-    window.excluirItem = async (id) => {
-        if(confirm("Apagar esta oferta?")) await remove(ref(db, `achadinhos/${id}`));
-    };
-
-    function carregarDados() {
-        onValue(query(ref(db, 'achadinhos'), limitToLast(40)), (snapshot) => {
-            const vitrine = document.getElementById('vitrine');
-            vitrine.innerHTML = "";
-            let itens = [];
-            snapshot.forEach(doc => { itens.unshift({id: doc.key, ...doc.val()}) });
-
-            if(itens.length === 0) { vitrine.innerHTML = "<p style='text-align:center; margin-top:50px; opacity:0.5'>Nenhuma oferta postada.</p>"; return; }
-
-            itens.forEach(item => {
-                const esgotado = item.status === 'esgotado';
-                const souDona = logado?.email === DONO;
-                
-                vitrine.innerHTML += `
-                    <div class="card ${esgotado ? 'esgotado' : ''}">
-                        ${item.img ? `<img src="${item.img}" class="card-img">` : ''}
-                        <div class="card-info">
-                            <span class="tag-cat">${item.cat || 'Geral'}</span>
-                            <h2 class="card-title">${item.nome}</h2>
-                            <span class="card-price">${item.preco}</span>
-                            ${!logado 
-                                ? `<button class="btn-link lock" onclick="document.getElementById('btnLogin').click()">Login para ver Link</button>`
-                                : esgotado 
-                                    ? `<span class="btn-link" style="background:#bbb">Esgotado</span>`
-                                    : `<a href="${item.link}" target="_blank" class="btn-link">Ir para a Loja</a>`
-                            }
-                        </div>
-                        ${souDona ? `
-                            <div class="admin-btns" style="display:flex">
-                                <button class="btn-del" style="border-color:#333; color:#333" onclick="mudarStatus('${item.id}', '${item.status}')">
-                                    ${esgotado ? 'Reativar' : 'Esgotado'}
-                                </button>
-                                <button class="btn-del" onclick="excluirItem('${item.id}')">Excluir</button>
-                            </div>
-                        ` : ''}
-                    </div>
-                `;
-            });
+                if(user.email === DONO_EMAIL) {
+                    btnAdd.style.display = 'flex';
+                } else {
+                    btnAdd.style.display = 'none';
+                }
+            } else {
+                btnLogin.style.display = 'block';
+                avatar.style.display = 'none';
+                btnAdd.style.display = 'none';
+            }
+            // Recarrega vitrine para atualizar botões
+            carregarVitrine(); 
         });
-    }
-</script>
+
+        // --- MODAL ---
+        btnAdd.onclick = () => modal.style.display = 'flex';
+        window.fecharModal = () => modal.style.display = 'none';
+
+        // --- POSTAR ---
+        window.postar = async () => {
+            const nome = document.getElementById('nome').value.trim();
+            const preco = document.getElementById('preco').value.trim();
+            const link = document.getElementById('link').value.trim();
+            const img = document.getElementById('img').value.trim();
+            const cat = document.getElementById('cat').value;
+
+            if(!nome || !preco || !link) {
+                alert("Preencha Nome, Preço e Link!");
+                return;
+            }
+
+            try {
+                await push(ref(db, 'achadinhos'), {
+                    nome, preco, link, img, cat,
+                    status: 'ativo',
+                    data: Date.now()
+                });
+                fecharModal();
+                document.querySelectorAll('input').forEach(i => i.value = "");
+                alert("✨ Oferta Publicada!");
+            } catch (error) {
+                alert("Erro ao publicar: " + error.message);
+            }
+        };
+
+        // --- ADMINISTRAÇÃO ---
+        window.toggleStatus = async (id, statusAtual) => {
+            try {
+                const novoStatus = statusAtual === 'ativo' ? 'esgotado' : 'ativo';
+                await update(ref(db, `achadinhos/${id}`), { status: novoStatus });
+            } catch (e) { alert("Erro ao atualizar status"); }
+        };
+
+        window.deletar = async (id) => {
+            if(confirm("Excluir permanentemente?")) {
+                try {
+                    await remove(ref(db, `achadinhos/${id}`));
+                } catch (e) { alert("Erro ao excluir"); }
+            }
+        };
+
+        // --- VITRINE ---
+        function carregarVitrine() {
+            onValue(query(ref(db, 'achadinhos'), limitToLast(50)), (snapshot) => {
+                const vitrine = document.getElementById('vitrine');
+                vitrine.innerHTML = "";
+                
+                const lista = [];
+                snapshot.forEach(item => lista.unshift({ id: item.key, ...item.val() }));
+
+                if(lista.length === 0) {
+                    vitrine.innerHTML = "<p class='loading-state'>Nenhuma oferta no momento.</p>";
+                    return;
+                }
+
+                lista.forEach(item => {
+                    const isEsgotado = item.status === 'esgotado';
+                    const souDona = usuarioAtual?.email === DONO_EMAIL;
+
+                    // Lógica do Botão
+                    let botaoHTML = "";
+                    if (isEsgotado) {
+                        botaoHTML = `<button class="btn-acao btn-esgotado">Esgotado</button>`;
+                    } else if (!usuarioAtual) {
+                        botaoHTML = `<button class="btn-acao btn-lock" onclick="document.getElementById('btnLogin').click()">🔒 Login para ver Link</button>`;
+                    } else {
+                        botaoHTML = `<a href="${item.link}" target="_blank" class="btn-acao btn-ver-loja">Ir para a Loja 🛒</a>`;
+                    }
+
+                    // Painel Admin
+                    const adminHTML = souDona ? `
+                        <div class="admin-controls">
+                            <button class="btn-mini" onclick="toggleStatus('${item.id}', '${item.status}')">
+                                ${isEsgotado ? 'Reativar' : 'Esgotar'}
+                            </button>
+                            <button class="btn-mini btn-delete" onclick="deletar('${item.id}')">Excluir</button>
+                        </div>
+                    ` : '';
+
+                    // Imagem Fallback (se quebrar ou não tiver)
+                    const imgUrl = item.img ? item.img : 'https://placehold.co/400x300?text=Oferta';
+
+                    vitrine.innerHTML += `
+                        <div class="card ${isEsgotado ? 'esgotado' : ''}">
+                            <div class="card-img-area">
+                                <span class="tag-cat">${item.cat}</span>
+                                <img src="${imgUrl}" class="card-img" onerror="this.src='https://placehold.co/400x300?text=Sem+Imagem'">
+                            </div>
+                            
+                            <div class="card-body">
+                                <h3 class="titulo">${item.nome}</h3>
+                                <span class="preco">${item.preco}</span>
+                                ${botaoHTML}
+                            </div>
+                            ${adminHTML}
+                        </div>
+                    `;
+                });
+            });
+        }
+    </script>
 </body>
 </html>
